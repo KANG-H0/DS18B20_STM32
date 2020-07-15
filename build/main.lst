@@ -1,0 +1,623 @@
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.SystemClock_Config,"ax",%progbits
+  16              		.align	1
+  17              		.global	SystemClock_Config
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	SystemClock_Config:
+  25              	.LFB69:
+  26              		.file 1 "Src/main.c"
+   1:Src/main.c    **** /* USER CODE BEGIN Header */
+   2:Src/main.c    **** /**
+   3:Src/main.c    ****   ******************************************************************************
+   4:Src/main.c    ****   * @file           : main.c
+   5:Src/main.c    ****   * @brief          : Main program body
+   6:Src/main.c    ****   ******************************************************************************
+   7:Src/main.c    ****   * @attention
+   8:Src/main.c    ****   *
+   9:Src/main.c    ****   * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  10:Src/main.c    ****   * All rights reserved.</center></h2>
+  11:Src/main.c    ****   *
+  12:Src/main.c    ****   * This software component is licensed by ST under BSD 3-Clause license,
+  13:Src/main.c    ****   * the "License"; You may not use this file except in compliance with the
+  14:Src/main.c    ****   * License. You may obtain a copy of the License at:
+  15:Src/main.c    ****   *                        opensource.org/licenses/BSD-3-Clause
+  16:Src/main.c    ****   *
+  17:Src/main.c    ****   ******************************************************************************
+  18:Src/main.c    ****   */
+  19:Src/main.c    **** /* USER CODE END Header */
+  20:Src/main.c    **** 
+  21:Src/main.c    **** /* Includes ------------------------------------------------------------------*/
+  22:Src/main.c    **** #include "main.h"
+  23:Src/main.c    **** #include "tim.h"
+  24:Src/main.c    **** #include "usart.h"
+  25:Src/main.c    **** #include "gpio.h"
+  26:Src/main.c    **** 
+  27:Src/main.c    **** /* Private includes ----------------------------------------------------------*/
+  28:Src/main.c    **** /* USER CODE BEGIN Includes */
+  29:Src/main.c    **** #include "DS18B20.h"
+  30:Src/main.c    **** /* USER CODE END Includes */
+  31:Src/main.c    **** 
+  32:Src/main.c    **** /* Private typedef -----------------------------------------------------------*/
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 2
+
+
+  33:Src/main.c    **** /* USER CODE BEGIN PTD */
+  34:Src/main.c    **** 
+  35:Src/main.c    **** /* USER CODE END PTD */
+  36:Src/main.c    **** 
+  37:Src/main.c    **** /* Private define ------------------------------------------------------------*/
+  38:Src/main.c    **** /* USER CODE BEGIN PD */
+  39:Src/main.c    **** /* USER CODE END PD */
+  40:Src/main.c    **** 
+  41:Src/main.c    **** /* Private macro -------------------------------------------------------------*/
+  42:Src/main.c    **** /* USER CODE BEGIN PM */
+  43:Src/main.c    **** 
+  44:Src/main.c    **** /* USER CODE END PM */
+  45:Src/main.c    **** 
+  46:Src/main.c    **** /* Private variables ---------------------------------------------------------*/
+  47:Src/main.c    **** 
+  48:Src/main.c    **** /* USER CODE BEGIN PV */
+  49:Src/main.c    **** 
+  50:Src/main.c    **** /* USER CODE END PV */
+  51:Src/main.c    **** 
+  52:Src/main.c    **** /* Private function prototypes -----------------------------------------------*/
+  53:Src/main.c    **** void SystemClock_Config(void);
+  54:Src/main.c    **** /* USER CODE BEGIN PFP */
+  55:Src/main.c    **** 
+  56:Src/main.c    **** /* USER CODE END PFP */
+  57:Src/main.c    **** 
+  58:Src/main.c    **** /* Private user code ---------------------------------------------------------*/
+  59:Src/main.c    **** /* USER CODE BEGIN 0 */
+  60:Src/main.c    **** uint16_t count = 0;
+  61:Src/main.c    **** /* USER CODE END 0 */
+  62:Src/main.c    **** 
+  63:Src/main.c    **** /**
+  64:Src/main.c    ****   * @brief  The application entry point.
+  65:Src/main.c    ****   * @retval int
+  66:Src/main.c    ****   */
+  67:Src/main.c    **** int main(void)
+  68:Src/main.c    **** {
+  69:Src/main.c    ****   /* USER CODE BEGIN 1 */
+  70:Src/main.c    **** 
+  71:Src/main.c    ****   /* USER CODE END 1 */
+  72:Src/main.c    **** 
+  73:Src/main.c    ****   /* MCU Configuration--------------------------------------------------------*/
+  74:Src/main.c    **** 
+  75:Src/main.c    ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  76:Src/main.c    ****   HAL_Init();
+  77:Src/main.c    **** 
+  78:Src/main.c    ****   /* USER CODE BEGIN Init */
+  79:Src/main.c    **** 
+  80:Src/main.c    ****   /* USER CODE END Init */
+  81:Src/main.c    **** 
+  82:Src/main.c    ****   /* Configure the system clock */
+  83:Src/main.c    ****   SystemClock_Config();
+  84:Src/main.c    **** 
+  85:Src/main.c    ****   /* USER CODE BEGIN SysInit */
+  86:Src/main.c    **** 
+  87:Src/main.c    ****   /* USER CODE END SysInit */
+  88:Src/main.c    **** 
+  89:Src/main.c    ****   /* Initialize all configured peripherals */
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 3
+
+
+  90:Src/main.c    ****   MX_GPIO_Init();
+  91:Src/main.c    ****   MX_TIM6_Init();
+  92:Src/main.c    ****   MX_USART1_UART_Init();
+  93:Src/main.c    ****   /* USER CODE BEGIN 2 */
+  94:Src/main.c    ****   if (DS18B20_Init() == 0)
+  95:Src/main.c    ****   {
+  96:Src/main.c    ****     printf("DS18B20 is OK!\r\n");
+  97:Src/main.c    ****   }
+  98:Src/main.c    ****   else if (DS18B20_Init() == 1)
+  99:Src/main.c    ****   {
+ 100:Src/main.c    ****     printf("DS18B20 can't be found");
+ 101:Src/main.c    ****   }
+ 102:Src/main.c    ****   HAL_Delay(1000);
+ 103:Src/main.c    ****   /* USER CODE END 2 */
+ 104:Src/main.c    **** 
+ 105:Src/main.c    ****   /* Infinite loop */
+ 106:Src/main.c    ****   /* USER CODE BEGIN WHILE */
+ 107:Src/main.c    ****   while (1)
+ 108:Src/main.c    ****   {
+ 109:Src/main.c    ****     /* USER CODE END WHILE */
+ 110:Src/main.c    **** 
+ 111:Src/main.c    ****     /* USER CODE BEGIN 3 */
+ 112:Src/main.c    ****     DS18B20_GetTemperature(); //获取温度
+ 113:Src/main.c    ****     printf("------Get Temperature------\r\n");
+ 114:Src/main.c    ****     printf("%d-Temp:%d\r\n", count++, DS18B20_TempDataStruct.TempDataAll);
+ 115:Src/main.c    ****     printf("Hun:%d\r\n", DS18B20_TempDataStruct.Hun);
+ 116:Src/main.c    ****     printf("Tens:%d\r\n", DS18B20_TempDataStruct.Tens);
+ 117:Src/main.c    ****     printf("Unit:%d\r\n", DS18B20_TempDataStruct.Unit);
+ 118:Src/main.c    ****     printf("Decimals1:%d\r\n", DS18B20_TempDataStruct.Decimals1);
+ 119:Src/main.c    ****     printf("Decimals2:%d\r\n", DS18B20_TempDataStruct.Decimals2);
+ 120:Src/main.c    ****     printf("---All the temperature data!---\r\n");
+ 121:Src/main.c    ****     HAL_Delay(1000);
+ 122:Src/main.c    ****   }
+ 123:Src/main.c    ****   /* USER CODE END 3 */
+ 124:Src/main.c    **** }
+ 125:Src/main.c    **** 
+ 126:Src/main.c    **** /**
+ 127:Src/main.c    ****   * @brief System Clock Configuration
+ 128:Src/main.c    ****   * @retval None
+ 129:Src/main.c    ****   */
+ 130:Src/main.c    **** void SystemClock_Config(void)
+ 131:Src/main.c    **** {
+  27              		.loc 1 131 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 64
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 30B5     		push	{r4, r5, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 12
+  34              		.cfi_offset 4, -12
+  35              		.cfi_offset 5, -8
+  36              		.cfi_offset 14, -4
+  37 0002 91B0     		sub	sp, sp, #68
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 80
+ 132:Src/main.c    ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  40              		.loc 1 132 3 view .LVU1
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 4
+
+
+  41              		.loc 1 132 22 is_stmt 0 view .LVU2
+  42 0004 0024     		movs	r4, #0
+  43 0006 0994     		str	r4, [sp, #36]
+  44 0008 0B94     		str	r4, [sp, #44]
+  45 000a 0C94     		str	r4, [sp, #48]
+ 133:Src/main.c    ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  46              		.loc 1 133 3 is_stmt 1 view .LVU3
+  47              		.loc 1 133 22 is_stmt 0 view .LVU4
+  48 000c 0194     		str	r4, [sp, #4]
+  49 000e 0294     		str	r4, [sp, #8]
+  50 0010 0394     		str	r4, [sp, #12]
+  51 0012 0494     		str	r4, [sp, #16]
+  52 0014 0594     		str	r4, [sp, #20]
+ 134:Src/main.c    **** 
+ 135:Src/main.c    ****   /** Initializes the CPU, AHB and APB busses clocks 
+ 136:Src/main.c    ****   */
+ 137:Src/main.c    ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  53              		.loc 1 137 3 is_stmt 1 view .LVU5
+  54              		.loc 1 137 36 is_stmt 0 view .LVU6
+  55 0016 0122     		movs	r2, #1
+  56 0018 0692     		str	r2, [sp, #24]
+ 138:Src/main.c    ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  57              		.loc 1 138 3 is_stmt 1 view .LVU7
+  58              		.loc 1 138 30 is_stmt 0 view .LVU8
+  59 001a 4FF48033 		mov	r3, #65536
+  60 001e 0793     		str	r3, [sp, #28]
+ 139:Src/main.c    ****   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
+  61              		.loc 1 139 3 is_stmt 1 view .LVU9
+  62              		.loc 1 139 36 is_stmt 0 view .LVU10
+  63 0020 0894     		str	r4, [sp, #32]
+ 140:Src/main.c    ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  64              		.loc 1 140 3 is_stmt 1 view .LVU11
+  65              		.loc 1 140 30 is_stmt 0 view .LVU12
+  66 0022 0A92     		str	r2, [sp, #40]
+ 141:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  67              		.loc 1 141 3 is_stmt 1 view .LVU13
+  68              		.loc 1 141 34 is_stmt 0 view .LVU14
+  69 0024 0225     		movs	r5, #2
+  70 0026 0D95     		str	r5, [sp, #52]
+ 142:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  71              		.loc 1 142 3 is_stmt 1 view .LVU15
+  72              		.loc 1 142 35 is_stmt 0 view .LVU16
+  73 0028 0E93     		str	r3, [sp, #56]
+ 143:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+  74              		.loc 1 143 3 is_stmt 1 view .LVU17
+  75              		.loc 1 143 32 is_stmt 0 view .LVU18
+  76 002a 4FF4E013 		mov	r3, #1835008
+  77 002e 0F93     		str	r3, [sp, #60]
+ 144:Src/main.c    ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  78              		.loc 1 144 3 is_stmt 1 view .LVU19
+  79              		.loc 1 144 7 is_stmt 0 view .LVU20
+  80 0030 06A8     		add	r0, sp, #24
+  81 0032 FFF7FEFF 		bl	HAL_RCC_OscConfig
+  82              	.LVL0:
+ 145:Src/main.c    ****   {
+ 146:Src/main.c    ****     Error_Handler();
+ 147:Src/main.c    ****   }
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 5
+
+
+ 148:Src/main.c    ****   /** Initializes the CPU, AHB and APB busses clocks 
+ 149:Src/main.c    ****   */
+ 150:Src/main.c    ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | R
+  83              		.loc 1 150 3 is_stmt 1 view .LVU21
+  84              		.loc 1 150 31 is_stmt 0 view .LVU22
+  85 0036 0F23     		movs	r3, #15
+  86 0038 0193     		str	r3, [sp, #4]
+ 151:Src/main.c    ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  87              		.loc 1 151 3 is_stmt 1 view .LVU23
+  88              		.loc 1 151 34 is_stmt 0 view .LVU24
+  89 003a 0295     		str	r5, [sp, #8]
+ 152:Src/main.c    ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  90              		.loc 1 152 3 is_stmt 1 view .LVU25
+  91              		.loc 1 152 35 is_stmt 0 view .LVU26
+  92 003c 0394     		str	r4, [sp, #12]
+ 153:Src/main.c    ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  93              		.loc 1 153 3 is_stmt 1 view .LVU27
+  94              		.loc 1 153 36 is_stmt 0 view .LVU28
+  95 003e 4FF48063 		mov	r3, #1024
+  96 0042 0493     		str	r3, [sp, #16]
+ 154:Src/main.c    ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  97              		.loc 1 154 3 is_stmt 1 view .LVU29
+  98              		.loc 1 154 36 is_stmt 0 view .LVU30
+  99 0044 0594     		str	r4, [sp, #20]
+ 155:Src/main.c    **** 
+ 156:Src/main.c    ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+ 100              		.loc 1 156 3 is_stmt 1 view .LVU31
+ 101              		.loc 1 156 7 is_stmt 0 view .LVU32
+ 102 0046 2946     		mov	r1, r5
+ 103 0048 01A8     		add	r0, sp, #4
+ 104 004a FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 105              	.LVL1:
+ 157:Src/main.c    ****   {
+ 158:Src/main.c    ****     Error_Handler();
+ 159:Src/main.c    ****   }
+ 160:Src/main.c    **** }
+ 106              		.loc 1 160 1 view .LVU33
+ 107 004e 11B0     		add	sp, sp, #68
+ 108              	.LCFI2:
+ 109              		.cfi_def_cfa_offset 12
+ 110              		@ sp needed
+ 111 0050 30BD     		pop	{r4, r5, pc}
+ 112              		.cfi_endproc
+ 113              	.LFE69:
+ 115              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+ 116              		.align	2
+ 117              	.LC0:
+ 118 0000 44533138 		.ascii	"DS18B20 is OK!\015\000"
+ 118      42323020 
+ 118      6973204F 
+ 118      4B210D00 
+ 119              		.align	2
+ 120              	.LC1:
+ 121 0010 44533138 		.ascii	"DS18B20 can't be found\000"
+ 121      42323020 
+ 121      63616E27 
+ 121      74206265 
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 6
+
+
+ 121      20666F75 
+ 122 0027 00       		.align	2
+ 123              	.LC2:
+ 124 0028 2D2D2D2D 		.ascii	"------Get Temperature------\015\000"
+ 124      2D2D4765 
+ 124      74205465 
+ 124      6D706572 
+ 124      61747572 
+ 125 0045 000000   		.align	2
+ 126              	.LC3:
+ 127 0048 25642D54 		.ascii	"%d-Temp:%d\015\012\000"
+ 127      656D703A 
+ 127      25640D0A 
+ 127      00
+ 128 0055 000000   		.align	2
+ 129              	.LC4:
+ 130 0058 48756E3A 		.ascii	"Hun:%d\015\012\000"
+ 130      25640D0A 
+ 130      00
+ 131 0061 000000   		.align	2
+ 132              	.LC5:
+ 133 0064 54656E73 		.ascii	"Tens:%d\015\012\000"
+ 133      3A25640D 
+ 133      0A00
+ 134 006e 0000     		.align	2
+ 135              	.LC6:
+ 136 0070 556E6974 		.ascii	"Unit:%d\015\012\000"
+ 136      3A25640D 
+ 136      0A00
+ 137 007a 0000     		.align	2
+ 138              	.LC7:
+ 139 007c 44656369 		.ascii	"Decimals1:%d\015\012\000"
+ 139      6D616C73 
+ 139      313A2564 
+ 139      0D0A00
+ 140 008b 00       		.align	2
+ 141              	.LC8:
+ 142 008c 44656369 		.ascii	"Decimals2:%d\015\012\000"
+ 142      6D616C73 
+ 142      323A2564 
+ 142      0D0A00
+ 143 009b 00       		.align	2
+ 144              	.LC9:
+ 145 009c 2D2D2D41 		.ascii	"---All the temperature data!---\015\000"
+ 145      6C6C2074 
+ 145      68652074 
+ 145      656D7065 
+ 145      72617475 
+ 146              		.section	.text.main,"ax",%progbits
+ 147              		.align	1
+ 148              		.global	main
+ 149              		.syntax unified
+ 150              		.thumb
+ 151              		.thumb_func
+ 152              		.fpu softvfp
+ 154              	main:
+ 155              	.LFB68:
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 7
+
+
+  68:Src/main.c    ****   /* USER CODE BEGIN 1 */
+ 156              		.loc 1 68 1 is_stmt 1 view -0
+ 157              		.cfi_startproc
+ 158              		@ Volatile: function does not return.
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161 0000 08B5     		push	{r3, lr}
+ 162              	.LCFI3:
+ 163              		.cfi_def_cfa_offset 8
+ 164              		.cfi_offset 3, -8
+ 165              		.cfi_offset 14, -4
+  76:Src/main.c    **** 
+ 166              		.loc 1 76 3 view .LVU35
+ 167 0002 FFF7FEFF 		bl	HAL_Init
+ 168              	.LVL2:
+  83:Src/main.c    **** 
+ 169              		.loc 1 83 3 view .LVU36
+ 170 0006 FFF7FEFF 		bl	SystemClock_Config
+ 171              	.LVL3:
+  90:Src/main.c    ****   MX_TIM6_Init();
+ 172              		.loc 1 90 3 view .LVU37
+ 173 000a FFF7FEFF 		bl	MX_GPIO_Init
+ 174              	.LVL4:
+  91:Src/main.c    ****   MX_USART1_UART_Init();
+ 175              		.loc 1 91 3 view .LVU38
+ 176 000e FFF7FEFF 		bl	MX_TIM6_Init
+ 177              	.LVL5:
+  92:Src/main.c    ****   /* USER CODE BEGIN 2 */
+ 178              		.loc 1 92 3 view .LVU39
+ 179 0012 FFF7FEFF 		bl	MX_USART1_UART_Init
+ 180              	.LVL6:
+  94:Src/main.c    ****   {
+ 181              		.loc 1 94 3 view .LVU40
+  94:Src/main.c    ****   {
+ 182              		.loc 1 94 7 is_stmt 0 view .LVU41
+ 183 0016 FFF7FEFF 		bl	DS18B20_Init
+ 184              	.LVL7:
+  94:Src/main.c    ****   {
+ 185              		.loc 1 94 6 view .LVU42
+ 186 001a 0028     		cmp	r0, #0
+ 187 001c 30D1     		bne	.L4
+  96:Src/main.c    ****   }
+ 188              		.loc 1 96 5 is_stmt 1 view .LVU43
+ 189 001e 1C48     		ldr	r0, .L8
+ 190 0020 FFF7FEFF 		bl	puts
+ 191              	.LVL8:
+ 192              	.L5:
+ 102:Src/main.c    ****   /* USER CODE END 2 */
+ 193              		.loc 1 102 3 view .LVU44
+ 194 0024 4FF47A70 		mov	r0, #1000
+ 195 0028 FFF7FEFF 		bl	HAL_Delay
+ 196              	.LVL9:
+ 197              	.L6:
+ 107:Src/main.c    ****   {
+ 198              		.loc 1 107 3 discriminator 1 view .LVU45
+ 112:Src/main.c    ****     printf("------Get Temperature------\r\n");
+ 199              		.loc 1 112 5 discriminator 1 view .LVU46
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 8
+
+
+ 200 002c FFF7FEFF 		bl	DS18B20_GetTemperature
+ 201              	.LVL10:
+ 113:Src/main.c    ****     printf("%d-Temp:%d\r\n", count++, DS18B20_TempDataStruct.TempDataAll);
+ 202              		.loc 1 113 5 discriminator 1 view .LVU47
+ 203 0030 1848     		ldr	r0, .L8+4
+ 204 0032 FFF7FEFF 		bl	puts
+ 205              	.LVL11:
+ 114:Src/main.c    ****     printf("Hun:%d\r\n", DS18B20_TempDataStruct.Hun);
+ 206              		.loc 1 114 5 discriminator 1 view .LVU48
+ 114:Src/main.c    ****     printf("Hun:%d\r\n", DS18B20_TempDataStruct.Hun);
+ 207              		.loc 1 114 35 is_stmt 0 discriminator 1 view .LVU49
+ 208 0036 184B     		ldr	r3, .L8+8
+ 209 0038 1988     		ldrh	r1, [r3]
+ 210 003a 4A1C     		adds	r2, r1, #1
+ 211 003c 1A80     		strh	r2, [r3]	@ movhi
+ 114:Src/main.c    ****     printf("Hun:%d\r\n", DS18B20_TempDataStruct.Hun);
+ 212              		.loc 1 114 61 discriminator 1 view .LVU50
+ 213 003e 174C     		ldr	r4, .L8+12
+ 114:Src/main.c    ****     printf("Hun:%d\r\n", DS18B20_TempDataStruct.Hun);
+ 214              		.loc 1 114 5 discriminator 1 view .LVU51
+ 215 0040 6289     		ldrh	r2, [r4, #10]
+ 216 0042 1748     		ldr	r0, .L8+16
+ 217 0044 FFF7FEFF 		bl	printf
+ 218              	.LVL12:
+ 115:Src/main.c    ****     printf("Tens:%d\r\n", DS18B20_TempDataStruct.Tens);
+ 219              		.loc 1 115 5 is_stmt 1 discriminator 1 view .LVU52
+ 220 0048 2188     		ldrh	r1, [r4]
+ 221 004a 1648     		ldr	r0, .L8+20
+ 222 004c FFF7FEFF 		bl	printf
+ 223              	.LVL13:
+ 116:Src/main.c    ****     printf("Unit:%d\r\n", DS18B20_TempDataStruct.Unit);
+ 224              		.loc 1 116 5 discriminator 1 view .LVU53
+ 225 0050 6188     		ldrh	r1, [r4, #2]
+ 226 0052 1548     		ldr	r0, .L8+24
+ 227 0054 FFF7FEFF 		bl	printf
+ 228              	.LVL14:
+ 117:Src/main.c    ****     printf("Decimals1:%d\r\n", DS18B20_TempDataStruct.Decimals1);
+ 229              		.loc 1 117 5 discriminator 1 view .LVU54
+ 230 0058 A188     		ldrh	r1, [r4, #4]
+ 231 005a 1448     		ldr	r0, .L8+28
+ 232 005c FFF7FEFF 		bl	printf
+ 233              	.LVL15:
+ 118:Src/main.c    ****     printf("Decimals2:%d\r\n", DS18B20_TempDataStruct.Decimals2);
+ 234              		.loc 1 118 5 discriminator 1 view .LVU55
+ 235 0060 E188     		ldrh	r1, [r4, #6]
+ 236 0062 1348     		ldr	r0, .L8+32
+ 237 0064 FFF7FEFF 		bl	printf
+ 238              	.LVL16:
+ 119:Src/main.c    ****     printf("---All the temperature data!---\r\n");
+ 239              		.loc 1 119 5 discriminator 1 view .LVU56
+ 240 0068 2189     		ldrh	r1, [r4, #8]
+ 241 006a 1248     		ldr	r0, .L8+36
+ 242 006c FFF7FEFF 		bl	printf
+ 243              	.LVL17:
+ 120:Src/main.c    ****     HAL_Delay(1000);
+ 244              		.loc 1 120 5 discriminator 1 view .LVU57
+ 245 0070 1148     		ldr	r0, .L8+40
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 9
+
+
+ 246 0072 FFF7FEFF 		bl	puts
+ 247              	.LVL18:
+ 121:Src/main.c    ****   }
+ 248              		.loc 1 121 5 discriminator 1 view .LVU58
+ 249 0076 4FF47A70 		mov	r0, #1000
+ 250 007a FFF7FEFF 		bl	HAL_Delay
+ 251              	.LVL19:
+ 107:Src/main.c    ****   {
+ 252              		.loc 1 107 9 discriminator 1 view .LVU59
+ 253 007e D5E7     		b	.L6
+ 254              	.L4:
+  98:Src/main.c    ****   {
+ 255              		.loc 1 98 8 view .LVU60
+  98:Src/main.c    ****   {
+ 256              		.loc 1 98 12 is_stmt 0 view .LVU61
+ 257 0080 FFF7FEFF 		bl	DS18B20_Init
+ 258              	.LVL20:
+  98:Src/main.c    ****   {
+ 259              		.loc 1 98 11 view .LVU62
+ 260 0084 0128     		cmp	r0, #1
+ 261 0086 CDD1     		bne	.L5
+ 100:Src/main.c    ****   }
+ 262              		.loc 1 100 5 is_stmt 1 view .LVU63
+ 263 0088 0C48     		ldr	r0, .L8+44
+ 264 008a FFF7FEFF 		bl	printf
+ 265              	.LVL21:
+ 266 008e C9E7     		b	.L5
+ 267              	.L9:
+ 268              		.align	2
+ 269              	.L8:
+ 270 0090 00000000 		.word	.LC0
+ 271 0094 28000000 		.word	.LC2
+ 272 0098 00000000 		.word	.LANCHOR0
+ 273 009c 00000000 		.word	DS18B20_TempDataStruct
+ 274 00a0 48000000 		.word	.LC3
+ 275 00a4 58000000 		.word	.LC4
+ 276 00a8 64000000 		.word	.LC5
+ 277 00ac 70000000 		.word	.LC6
+ 278 00b0 7C000000 		.word	.LC7
+ 279 00b4 8C000000 		.word	.LC8
+ 280 00b8 9C000000 		.word	.LC9
+ 281 00bc 10000000 		.word	.LC1
+ 282              		.cfi_endproc
+ 283              	.LFE68:
+ 285              		.section	.text.Error_Handler,"ax",%progbits
+ 286              		.align	1
+ 287              		.global	Error_Handler
+ 288              		.syntax unified
+ 289              		.thumb
+ 290              		.thumb_func
+ 291              		.fpu softvfp
+ 293              	Error_Handler:
+ 294              	.LFB70:
+ 161:Src/main.c    **** 
+ 162:Src/main.c    **** /* USER CODE BEGIN 4 */
+ 163:Src/main.c    **** 
+ 164:Src/main.c    **** /* USER CODE END 4 */
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 10
+
+
+ 165:Src/main.c    **** 
+ 166:Src/main.c    **** /**
+ 167:Src/main.c    ****   * @brief  This function is executed in case of error occurrence.
+ 168:Src/main.c    ****   * @retval None
+ 169:Src/main.c    ****   */
+ 170:Src/main.c    **** void Error_Handler(void)
+ 171:Src/main.c    **** {
+ 295              		.loc 1 171 1 view -0
+ 296              		.cfi_startproc
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 299              		@ link register save eliminated.
+ 172:Src/main.c    ****   /* USER CODE BEGIN Error_Handler_Debug */
+ 173:Src/main.c    ****   /* User can add his own implementation to report the HAL error return state */
+ 174:Src/main.c    **** 
+ 175:Src/main.c    ****   /* USER CODE END Error_Handler_Debug */
+ 176:Src/main.c    **** }
+ 300              		.loc 1 176 1 view .LVU65
+ 301 0000 7047     		bx	lr
+ 302              		.cfi_endproc
+ 303              	.LFE70:
+ 305              		.global	count
+ 306              		.section	.bss.count,"aw",%nobits
+ 307              		.align	1
+ 308              		.set	.LANCHOR0,. + 0
+ 311              	count:
+ 312 0000 0000     		.space	2
+ 313              		.text
+ 314              	.Letext0:
+ 315              		.file 2 "d:\\armgcc\\9 2020-q2-update\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 316              		.file 3 "d:\\armgcc\\9 2020-q2-update\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 317              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 318              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 319              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 320              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 321              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
+ 322              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
+ 323              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 324              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h"
+ 325              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 326              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 327              		.file 14 "Inc/tim.h"
+ 328              		.file 15 "d:\\armgcc\\9 2020-q2-update\\lib\\gcc\\arm-none-eabi\\9.3.1\\include\\stddef.h"
+ 329              		.file 16 "d:\\armgcc\\9 2020-q2-update\\arm-none-eabi\\include\\sys\\_types.h"
+ 330              		.file 17 "d:\\armgcc\\9 2020-q2-update\\arm-none-eabi\\include\\sys\\reent.h"
+ 331              		.file 18 "d:\\armgcc\\9 2020-q2-update\\arm-none-eabi\\include\\sys\\lock.h"
+ 332              		.file 19 "Inc/usart.h"
+ 333              		.file 20 "Inc/DS18B20.h"
+ 334              		.file 21 "Inc/gpio.h"
+ 335              		.file 22 "d:\\armgcc\\9 2020-q2-update\\arm-none-eabi\\include\\stdio.h"
+ 336              		.file 23 "<built-in>"
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:16     .text.SystemClock_Config:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:24     .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:116    .rodata.main.str1.4:00000000 $d
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:147    .text.main:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:154    .text.main:00000000 main
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:270    .text.main:00000090 $d
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:286    .text.Error_Handler:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:293    .text.Error_Handler:00000000 Error_Handler
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:311    .bss.count:00000000 count
+C:\Users\Javis\AppData\Local\Temp\ccKSb7rc.s:307    .bss.count:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_RCC_OscConfig
+HAL_RCC_ClockConfig
+HAL_Init
+MX_GPIO_Init
+MX_TIM6_Init
+MX_USART1_UART_Init
+DS18B20_Init
+puts
+HAL_Delay
+DS18B20_GetTemperature
+printf
+DS18B20_TempDataStruct

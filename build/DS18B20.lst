@@ -1,0 +1,915 @@
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"DS18B20.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.DS18B20_IO_Mode,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	DS18B20_IO_Mode:
+  24              	.LVL0:
+  25              	.LFB65:
+  26              		.file 1 "Src/DS18B20.c"
+   1:Src/DS18B20.c **** 
+   2:Src/DS18B20.c **** #include "DS18B20.h"
+   3:Src/DS18B20.c **** 
+   4:Src/DS18B20.c **** static void DS18B20_IO_Mode(uint8_t in_or_out);
+   5:Src/DS18B20.c **** static void DS18B20_Write_Byte(uint8_t Wdata);
+   6:Src/DS18B20.c **** static uint8_t DS18B20_Read_Byte(void);
+   7:Src/DS18B20.c **** 
+   8:Src/DS18B20.c **** uint8_t Sign = ' '; //温度的正负标志
+   9:Src/DS18B20.c **** DS18B20_TempDataTypeDef DS18B20_TempDataStruct = {0};
+  10:Src/DS18B20.c **** 
+  11:Src/DS18B20.c **** //DS18B20_IO模式配置
+  12:Src/DS18B20.c **** static void DS18B20_IO_Mode(uint8_t in_or_out)
+  13:Src/DS18B20.c **** {
+  27              		.loc 1 13 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 16
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		.loc 1 13 1 is_stmt 0 view .LVU1
+  32 0000 00B5     		push	{lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 14, -4
+  36 0002 85B0     		sub	sp, sp, #20
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 24
+  14:Src/DS18B20.c ****     GPIO_InitTypeDef GPIO_InitStruct = {0};
+  39              		.loc 1 14 5 is_stmt 1 view .LVU2
+  40              		.loc 1 14 22 is_stmt 0 view .LVU3
+  41 0004 0023     		movs	r3, #0
+  42 0006 0193     		str	r3, [sp, #4]
+  43 0008 0393     		str	r3, [sp, #12]
+  15:Src/DS18B20.c ****     GPIO_InitStruct.Pin = DS18B20_IO_Pin;
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 2
+
+
+  44              		.loc 1 15 5 is_stmt 1 view .LVU4
+  45              		.loc 1 15 25 is_stmt 0 view .LVU5
+  46 000a 4FF48073 		mov	r3, #256
+  47 000e 0093     		str	r3, [sp]
+  16:Src/DS18B20.c ****     if (in_or_out == 1)
+  48              		.loc 1 16 5 is_stmt 1 view .LVU6
+  49              		.loc 1 16 8 is_stmt 0 view .LVU7
+  50 0010 0128     		cmp	r0, #1
+  51 0012 01D0     		beq	.L3
+  17:Src/DS18B20.c ****     {
+  18:Src/DS18B20.c ****         GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  19:Src/DS18B20.c ****     }
+  20:Src/DS18B20.c ****     else if (in_or_out == 2)
+  52              		.loc 1 20 10 is_stmt 1 view .LVU8
+  53              		.loc 1 20 13 is_stmt 0 view .LVU9
+  54 0014 0228     		cmp	r0, #2
+  55 0016 08D0     		beq	.L5
+  56              	.L3:
+  21:Src/DS18B20.c ****     {
+  22:Src/DS18B20.c ****         GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  23:Src/DS18B20.c ****         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  24:Src/DS18B20.c ****     }
+  25:Src/DS18B20.c ****     GPIO_InitStruct.Pull = GPIO_PULLUP;
+  57              		.loc 1 25 5 is_stmt 1 view .LVU10
+  58              		.loc 1 25 26 is_stmt 0 view .LVU11
+  59 0018 0123     		movs	r3, #1
+  60 001a 0293     		str	r3, [sp, #8]
+  26:Src/DS18B20.c ****     HAL_GPIO_Init(DS18B20_IO_GPIO_Port, &GPIO_InitStruct);
+  61              		.loc 1 26 5 is_stmt 1 view .LVU12
+  62 001c 6946     		mov	r1, sp
+  63 001e 0548     		ldr	r0, .L6
+  64              	.LVL1:
+  65              		.loc 1 26 5 is_stmt 0 view .LVU13
+  66 0020 FFF7FEFF 		bl	HAL_GPIO_Init
+  67              	.LVL2:
+  27:Src/DS18B20.c **** }
+  68              		.loc 1 27 1 view .LVU14
+  69 0024 05B0     		add	sp, sp, #20
+  70              	.LCFI2:
+  71              		.cfi_remember_state
+  72              		.cfi_def_cfa_offset 4
+  73              		@ sp needed
+  74 0026 5DF804FB 		ldr	pc, [sp], #4
+  75              	.LVL3:
+  76              	.L5:
+  77              	.LCFI3:
+  78              		.cfi_restore_state
+  22:Src/DS18B20.c ****         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  79              		.loc 1 22 9 is_stmt 1 view .LVU15
+  22:Src/DS18B20.c ****         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  80              		.loc 1 22 30 is_stmt 0 view .LVU16
+  81 002a 0123     		movs	r3, #1
+  82 002c 0193     		str	r3, [sp, #4]
+  23:Src/DS18B20.c ****     }
+  83              		.loc 1 23 9 is_stmt 1 view .LVU17
+  23:Src/DS18B20.c ****     }
+  84              		.loc 1 23 31 is_stmt 0 view .LVU18
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 3
+
+
+  85 002e 0223     		movs	r3, #2
+  86 0030 0393     		str	r3, [sp, #12]
+  87 0032 F1E7     		b	.L3
+  88              	.L7:
+  89              		.align	2
+  90              	.L6:
+  91 0034 000C0140 		.word	1073810432
+  92              		.cfi_endproc
+  93              	.LFE65:
+  95              		.section	.text.HAL_Delay_us,"ax",%progbits
+  96              		.align	1
+  97              		.global	HAL_Delay_us
+  98              		.syntax unified
+  99              		.thumb
+ 100              		.thumb_func
+ 101              		.fpu softvfp
+ 103              	HAL_Delay_us:
+ 104              	.LVL4:
+ 105              	.LFB66:
+  28:Src/DS18B20.c **** 
+  29:Src/DS18B20.c **** //基于TIM6的微秒(us)延时函数
+  30:Src/DS18B20.c **** void HAL_Delay_us(uint16_t Delay)
+  31:Src/DS18B20.c **** {
+ 106              		.loc 1 31 1 is_stmt 1 view -0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110              		.loc 1 31 1 is_stmt 0 view .LVU20
+ 111 0000 38B5     		push	{r3, r4, r5, lr}
+ 112              	.LCFI4:
+ 113              		.cfi_def_cfa_offset 16
+ 114              		.cfi_offset 3, -16
+ 115              		.cfi_offset 4, -12
+ 116              		.cfi_offset 5, -8
+ 117              		.cfi_offset 14, -4
+ 118 0002 0446     		mov	r4, r0
+  32:Src/DS18B20.c ****     uint16_t tickstart = __HAL_TIM_GET_COUNTER(&htim6);
+ 119              		.loc 1 32 5 is_stmt 1 view .LVU21
+ 120              		.loc 1 32 26 is_stmt 0 view .LVU22
+ 121 0004 0948     		ldr	r0, .L11
+ 122              	.LVL5:
+ 123              		.loc 1 32 26 view .LVU23
+ 124 0006 0368     		ldr	r3, [r0]
+ 125 0008 5D6A     		ldr	r5, [r3, #36]
+ 126              	.LVL6:
+  33:Src/DS18B20.c ****     uint16_t wait = Delay;
+ 127              		.loc 1 33 5 is_stmt 1 view .LVU24
+  34:Src/DS18B20.c ****     HAL_TIM_Base_Start(&htim6);
+ 128              		.loc 1 34 5 view .LVU25
+ 129 000a FFF7FEFF 		bl	HAL_TIM_Base_Start
+ 130              	.LVL7:
+  35:Src/DS18B20.c ****     while ((__HAL_TIM_GET_COUNTER(&htim6) - tickstart) < wait)
+ 131              		.loc 1 35 5 view .LVU26
+ 132              	.L9:
+  36:Src/DS18B20.c ****     {
+  37:Src/DS18B20.c ****     }
+ 133              		.loc 1 37 5 discriminator 1 view .LVU27
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 4
+
+
+  35:Src/DS18B20.c ****     while ((__HAL_TIM_GET_COUNTER(&htim6) - tickstart) < wait)
+ 134              		.loc 1 35 11 discriminator 1 view .LVU28
+  35:Src/DS18B20.c ****     while ((__HAL_TIM_GET_COUNTER(&htim6) - tickstart) < wait)
+ 135              		.loc 1 35 13 is_stmt 0 discriminator 1 view .LVU29
+ 136 000e 074B     		ldr	r3, .L11
+ 137 0010 1B68     		ldr	r3, [r3]
+ 138 0012 5B6A     		ldr	r3, [r3, #36]
+  35:Src/DS18B20.c ****     while ((__HAL_TIM_GET_COUNTER(&htim6) - tickstart) < wait)
+ 139              		.loc 1 35 43 discriminator 1 view .LVU30
+ 140 0014 AAB2     		uxth	r2, r5
+ 141 0016 9B1A     		subs	r3, r3, r2
+  35:Src/DS18B20.c ****     while ((__HAL_TIM_GET_COUNTER(&htim6) - tickstart) < wait)
+ 142              		.loc 1 35 11 discriminator 1 view .LVU31
+ 143 0018 A342     		cmp	r3, r4
+ 144 001a F8D3     		bcc	.L9
+  38:Src/DS18B20.c ****     HAL_TIM_Base_Stop(&htim6);
+ 145              		.loc 1 38 5 is_stmt 1 view .LVU32
+ 146 001c 034C     		ldr	r4, .L11
+ 147              	.LVL8:
+ 148              		.loc 1 38 5 is_stmt 0 view .LVU33
+ 149 001e 2046     		mov	r0, r4
+ 150 0020 FFF7FEFF 		bl	HAL_TIM_Base_Stop
+ 151              	.LVL9:
+  39:Src/DS18B20.c ****     __HAL_TIM_SET_COUNTER(&htim6, 0);
+ 152              		.loc 1 39 5 is_stmt 1 view .LVU34
+ 153 0024 2368     		ldr	r3, [r4]
+ 154 0026 0022     		movs	r2, #0
+ 155 0028 5A62     		str	r2, [r3, #36]
+  40:Src/DS18B20.c **** }
+ 156              		.loc 1 40 1 is_stmt 0 view .LVU35
+ 157 002a 38BD     		pop	{r3, r4, r5, pc}
+ 158              	.LVL10:
+ 159              	.L12:
+ 160              		.loc 1 40 1 view .LVU36
+ 161              		.align	2
+ 162              	.L11:
+ 163 002c 00000000 		.word	htim6
+ 164              		.cfi_endproc
+ 165              	.LFE66:
+ 167              		.section	.text.DS18B20_Write_Byte,"ax",%progbits
+ 168              		.align	1
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ 172              		.fpu softvfp
+ 174              	DS18B20_Write_Byte:
+ 175              	.LVL11:
+ 176              	.LFB68:
+  41:Src/DS18B20.c **** 
+  42:Src/DS18B20.c **** //DS18B20初始化
+  43:Src/DS18B20.c **** uint16_t DS18B20_Init(void)
+  44:Src/DS18B20.c **** {
+  45:Src/DS18B20.c ****     uint16_t DS_flag;
+  46:Src/DS18B20.c ****     DS18B20_IO_Mode(out);
+  47:Src/DS18B20.c ****     DS18B20_IO_Write_0();
+  48:Src/DS18B20.c ****     HAL_Delay_us(600);
+  49:Src/DS18B20.c ****     DS18B20_IO_Write_1();
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 5
+
+
+  50:Src/DS18B20.c ****     HAL_Delay_us(30);
+  51:Src/DS18B20.c ****     DS18B20_IO_Mode(in);
+  52:Src/DS18B20.c ****     DS_flag = DS18B20_IO_Read();
+  53:Src/DS18B20.c ****     HAL_Delay_us(500);
+  54:Src/DS18B20.c ****     return DS_flag;
+  55:Src/DS18B20.c **** }
+  56:Src/DS18B20.c **** 
+  57:Src/DS18B20.c **** //向DS18B20写入一个字节数据
+  58:Src/DS18B20.c **** static void DS18B20_Write_Byte(uint8_t Wdata)
+  59:Src/DS18B20.c **** {
+ 177              		.loc 1 59 1 is_stmt 1 view -0
+ 178              		.cfi_startproc
+ 179              		@ args = 0, pretend = 0, frame = 0
+ 180              		@ frame_needed = 0, uses_anonymous_args = 0
+ 181              		.loc 1 59 1 is_stmt 0 view .LVU38
+ 182 0000 38B5     		push	{r3, r4, r5, lr}
+ 183              	.LCFI5:
+ 184              		.cfi_def_cfa_offset 16
+ 185              		.cfi_offset 3, -16
+ 186              		.cfi_offset 4, -12
+ 187              		.cfi_offset 5, -8
+ 188              		.cfi_offset 14, -4
+ 189 0002 0546     		mov	r5, r0
+  60:Src/DS18B20.c ****     uint8_t i;
+ 190              		.loc 1 60 5 is_stmt 1 view .LVU39
+  61:Src/DS18B20.c ****     for (i = 8; i > 0; i--)
+ 191              		.loc 1 61 5 view .LVU40
+ 192              	.LVL12:
+ 193              		.loc 1 61 12 is_stmt 0 view .LVU41
+ 194 0004 0824     		movs	r4, #8
+ 195              		.loc 1 61 5 view .LVU42
+ 196 0006 11E0     		b	.L14
+ 197              	.LVL13:
+ 198              	.L15:
+  62:Src/DS18B20.c ****     {
+  63:Src/DS18B20.c ****         DS18B20_IO_Mode(out);
+  64:Src/DS18B20.c ****         DS18B20_IO_Write_0();
+  65:Src/DS18B20.c ****         HAL_Delay_us(2);
+  66:Src/DS18B20.c ****         if ((Wdata & 0x01) == 1) //从最低位开始写
+  67:Src/DS18B20.c ****             DS18B20_IO_Write_1();
+  68:Src/DS18B20.c ****         else
+  69:Src/DS18B20.c ****             DS18B20_IO_Write_0();
+ 199              		.loc 1 69 13 is_stmt 1 view .LVU43
+ 200 0008 0022     		movs	r2, #0
+ 201 000a 4FF48071 		mov	r1, #256
+ 202 000e 1348     		ldr	r0, .L20
+ 203 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 204              	.LVL14:
+ 205              	.L16:
+  70:Src/DS18B20.c ****         HAL_Delay_us(70);
+ 206              		.loc 1 70 9 discriminator 2 view .LVU44
+ 207 0014 4620     		movs	r0, #70
+ 208 0016 FFF7FEFF 		bl	HAL_Delay_us
+ 209              	.LVL15:
+  71:Src/DS18B20.c ****         DS18B20_IO_Write_1();
+ 210              		.loc 1 71 9 discriminator 2 view .LVU45
+ 211 001a 0122     		movs	r2, #1
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 6
+
+
+ 212 001c 4FF48071 		mov	r1, #256
+ 213 0020 0E48     		ldr	r0, .L20
+ 214 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 215              	.LVL16:
+  72:Src/DS18B20.c ****         Wdata >>= 1;
+ 216              		.loc 1 72 9 discriminator 2 view .LVU46
+ 217              		.loc 1 72 15 is_stmt 0 discriminator 2 view .LVU47
+ 218 0026 6D08     		lsrs	r5, r5, #1
+ 219              	.LVL17:
+  61:Src/DS18B20.c ****     {
+ 220              		.loc 1 61 24 is_stmt 1 discriminator 2 view .LVU48
+  61:Src/DS18B20.c ****     {
+ 221              		.loc 1 61 25 is_stmt 0 discriminator 2 view .LVU49
+ 222 0028 013C     		subs	r4, r4, #1
+ 223              	.LVL18:
+  61:Src/DS18B20.c ****     {
+ 224              		.loc 1 61 25 discriminator 2 view .LVU50
+ 225 002a E4B2     		uxtb	r4, r4
+ 226              	.LVL19:
+ 227              	.L14:
+  61:Src/DS18B20.c ****     {
+ 228              		.loc 1 61 17 is_stmt 1 discriminator 1 view .LVU51
+  61:Src/DS18B20.c ****     {
+ 229              		.loc 1 61 5 is_stmt 0 discriminator 1 view .LVU52
+ 230 002c ACB1     		cbz	r4, .L19
+  63:Src/DS18B20.c ****         DS18B20_IO_Write_0();
+ 231              		.loc 1 63 9 is_stmt 1 view .LVU53
+ 232 002e 0220     		movs	r0, #2
+ 233 0030 FFF7FEFF 		bl	DS18B20_IO_Mode
+ 234              	.LVL20:
+  64:Src/DS18B20.c ****         HAL_Delay_us(2);
+ 235              		.loc 1 64 9 view .LVU54
+ 236 0034 0022     		movs	r2, #0
+ 237 0036 4FF48071 		mov	r1, #256
+ 238 003a 0848     		ldr	r0, .L20
+ 239 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 240              	.LVL21:
+  65:Src/DS18B20.c ****         if ((Wdata & 0x01) == 1) //从最低位开始写
+ 241              		.loc 1 65 9 view .LVU55
+ 242 0040 0220     		movs	r0, #2
+ 243 0042 FFF7FEFF 		bl	HAL_Delay_us
+ 244              	.LVL22:
+  66:Src/DS18B20.c ****             DS18B20_IO_Write_1();
+ 245              		.loc 1 66 9 view .LVU56
+  66:Src/DS18B20.c ****             DS18B20_IO_Write_1();
+ 246              		.loc 1 66 12 is_stmt 0 view .LVU57
+ 247 0046 15F0010F 		tst	r5, #1
+ 248 004a DDD0     		beq	.L15
+  67:Src/DS18B20.c ****         else
+ 249              		.loc 1 67 13 is_stmt 1 view .LVU58
+ 250 004c 0122     		movs	r2, #1
+ 251 004e 4FF48071 		mov	r1, #256
+ 252 0052 0248     		ldr	r0, .L20
+ 253 0054 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 254              	.LVL23:
+ 255 0058 DCE7     		b	.L16
+ 256              	.L19:
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 7
+
+
+  73:Src/DS18B20.c ****     }
+  74:Src/DS18B20.c **** }
+ 257              		.loc 1 74 1 is_stmt 0 view .LVU59
+ 258 005a 38BD     		pop	{r3, r4, r5, pc}
+ 259              	.LVL24:
+ 260              	.L21:
+ 261              		.loc 1 74 1 view .LVU60
+ 262              		.align	2
+ 263              	.L20:
+ 264 005c 000C0140 		.word	1073810432
+ 265              		.cfi_endproc
+ 266              	.LFE68:
+ 268              		.section	.text.DS18B20_Read_Byte,"ax",%progbits
+ 269              		.align	1
+ 270              		.syntax unified
+ 271              		.thumb
+ 272              		.thumb_func
+ 273              		.fpu softvfp
+ 275              	DS18B20_Read_Byte:
+ 276              	.LFB69:
+  75:Src/DS18B20.c **** 
+  76:Src/DS18B20.c **** //向DS18B20读出一个字节数据
+  77:Src/DS18B20.c **** static uint8_t DS18B20_Read_Byte(void)
+  78:Src/DS18B20.c **** {
+ 277              		.loc 1 78 1 is_stmt 1 view -0
+ 278              		.cfi_startproc
+ 279              		@ args = 0, pretend = 0, frame = 0
+ 280              		@ frame_needed = 0, uses_anonymous_args = 0
+ 281 0000 70B5     		push	{r4, r5, r6, lr}
+ 282              	.LCFI6:
+ 283              		.cfi_def_cfa_offset 16
+ 284              		.cfi_offset 4, -16
+ 285              		.cfi_offset 5, -12
+ 286              		.cfi_offset 6, -8
+ 287              		.cfi_offset 14, -4
+  79:Src/DS18B20.c ****     uint8_t i;
+ 288              		.loc 1 79 5 view .LVU62
+  80:Src/DS18B20.c ****     uint8_t Rdata = 0;
+ 289              		.loc 1 80 5 view .LVU63
+ 290              	.LVL25:
+  81:Src/DS18B20.c ****     for (i = 8; i > 0; i--)
+ 291              		.loc 1 81 5 view .LVU64
+  80:Src/DS18B20.c ****     uint8_t Rdata = 0;
+ 292              		.loc 1 80 13 is_stmt 0 view .LVU65
+ 293 0002 0026     		movs	r6, #0
+ 294              		.loc 1 81 12 view .LVU66
+ 295 0004 0824     		movs	r4, #8
+ 296              		.loc 1 81 5 view .LVU67
+ 297 0006 04E0     		b	.L23
+ 298              	.LVL26:
+ 299              	.L24:
+  82:Src/DS18B20.c ****     {
+  83:Src/DS18B20.c ****         DS18B20_IO_Mode(out);
+  84:Src/DS18B20.c ****         DS18B20_IO_Write_0();
+  85:Src/DS18B20.c ****         HAL_Delay_us(2);
+  86:Src/DS18B20.c ****         DS18B20_IO_Write_1();
+  87:Src/DS18B20.c ****         HAL_Delay_us(15);
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 8
+
+
+  88:Src/DS18B20.c ****         Rdata >>= 1;
+  89:Src/DS18B20.c ****         DS18B20_IO_Mode(in);
+  90:Src/DS18B20.c ****         if (DS18B20_IO_Read() == 1)
+  91:Src/DS18B20.c ****             Rdata |= 0x80;
+  92:Src/DS18B20.c ****         HAL_Delay_us(50);
+ 300              		.loc 1 92 9 is_stmt 1 discriminator 2 view .LVU68
+ 301 0008 3220     		movs	r0, #50
+ 302 000a FFF7FEFF 		bl	HAL_Delay_us
+ 303              	.LVL27:
+  81:Src/DS18B20.c ****     for (i = 8; i > 0; i--)
+ 304              		.loc 1 81 24 discriminator 2 view .LVU69
+  81:Src/DS18B20.c ****     for (i = 8; i > 0; i--)
+ 305              		.loc 1 81 25 is_stmt 0 discriminator 2 view .LVU70
+ 306 000e 013C     		subs	r4, r4, #1
+ 307              	.LVL28:
+  81:Src/DS18B20.c ****     for (i = 8; i > 0; i--)
+ 308              		.loc 1 81 25 discriminator 2 view .LVU71
+ 309 0010 E4B2     		uxtb	r4, r4
+ 310              	.LVL29:
+ 311              	.L23:
+  81:Src/DS18B20.c ****     for (i = 8; i > 0; i--)
+ 312              		.loc 1 81 17 is_stmt 1 discriminator 1 view .LVU72
+  81:Src/DS18B20.c ****     for (i = 8; i > 0; i--)
+ 313              		.loc 1 81 5 is_stmt 0 discriminator 1 view .LVU73
+ 314 0012 24B3     		cbz	r4, .L27
+  83:Src/DS18B20.c ****         DS18B20_IO_Write_0();
+ 315              		.loc 1 83 9 is_stmt 1 view .LVU74
+ 316 0014 0220     		movs	r0, #2
+ 317 0016 FFF7FEFF 		bl	DS18B20_IO_Mode
+ 318              	.LVL30:
+  84:Src/DS18B20.c ****         HAL_Delay_us(2);
+ 319              		.loc 1 84 9 view .LVU75
+ 320 001a 124D     		ldr	r5, .L28
+ 321 001c 0022     		movs	r2, #0
+ 322 001e 4FF48071 		mov	r1, #256
+ 323 0022 2846     		mov	r0, r5
+ 324 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 325              	.LVL31:
+  85:Src/DS18B20.c ****         DS18B20_IO_Write_1();
+ 326              		.loc 1 85 9 view .LVU76
+ 327 0028 0220     		movs	r0, #2
+ 328 002a FFF7FEFF 		bl	HAL_Delay_us
+ 329              	.LVL32:
+  86:Src/DS18B20.c ****         HAL_Delay_us(15);
+ 330              		.loc 1 86 9 view .LVU77
+ 331 002e 0122     		movs	r2, #1
+ 332 0030 4FF48071 		mov	r1, #256
+ 333 0034 2846     		mov	r0, r5
+ 334 0036 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 335              	.LVL33:
+  87:Src/DS18B20.c ****         Rdata >>= 1;
+ 336              		.loc 1 87 9 view .LVU78
+ 337 003a 0F20     		movs	r0, #15
+ 338 003c FFF7FEFF 		bl	HAL_Delay_us
+ 339              	.LVL34:
+  88:Src/DS18B20.c ****         DS18B20_IO_Mode(in);
+ 340              		.loc 1 88 9 view .LVU79
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 9
+
+
+  88:Src/DS18B20.c ****         DS18B20_IO_Mode(in);
+ 341              		.loc 1 88 15 is_stmt 0 view .LVU80
+ 342 0040 7608     		lsrs	r6, r6, #1
+ 343              	.LVL35:
+  89:Src/DS18B20.c ****         if (DS18B20_IO_Read() == 1)
+ 344              		.loc 1 89 9 is_stmt 1 view .LVU81
+ 345 0042 0120     		movs	r0, #1
+ 346 0044 FFF7FEFF 		bl	DS18B20_IO_Mode
+ 347              	.LVL36:
+  90:Src/DS18B20.c ****             Rdata |= 0x80;
+ 348              		.loc 1 90 9 view .LVU82
+  90:Src/DS18B20.c ****             Rdata |= 0x80;
+ 349              		.loc 1 90 13 is_stmt 0 view .LVU83
+ 350 0048 4FF48071 		mov	r1, #256
+ 351 004c 2846     		mov	r0, r5
+ 352 004e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 353              	.LVL37:
+  90:Src/DS18B20.c ****             Rdata |= 0x80;
+ 354              		.loc 1 90 12 view .LVU84
+ 355 0052 0128     		cmp	r0, #1
+ 356 0054 D8D1     		bne	.L24
+  91:Src/DS18B20.c ****         HAL_Delay_us(50);
+ 357              		.loc 1 91 13 is_stmt 1 view .LVU85
+  91:Src/DS18B20.c ****         HAL_Delay_us(50);
+ 358              		.loc 1 91 19 is_stmt 0 view .LVU86
+ 359 0056 66F07F06 		orn	r6, r6, #127
+ 360              	.LVL38:
+  91:Src/DS18B20.c ****         HAL_Delay_us(50);
+ 361              		.loc 1 91 19 view .LVU87
+ 362 005a F6B2     		uxtb	r6, r6
+ 363              	.LVL39:
+  91:Src/DS18B20.c ****         HAL_Delay_us(50);
+ 364              		.loc 1 91 19 view .LVU88
+ 365 005c D4E7     		b	.L24
+ 366              	.L27:
+  93:Src/DS18B20.c ****     }
+  94:Src/DS18B20.c ****     return Rdata;
+ 367              		.loc 1 94 5 is_stmt 1 view .LVU89
+  95:Src/DS18B20.c **** }
+ 368              		.loc 1 95 1 is_stmt 0 view .LVU90
+ 369 005e 3046     		mov	r0, r6
+ 370 0060 70BD     		pop	{r4, r5, r6, pc}
+ 371              	.LVL40:
+ 372              	.L29:
+ 373              		.loc 1 95 1 view .LVU91
+ 374 0062 00BF     		.align	2
+ 375              	.L28:
+ 376 0064 000C0140 		.word	1073810432
+ 377              		.cfi_endproc
+ 378              	.LFE69:
+ 380              		.section	.text.DS18B20_Init,"ax",%progbits
+ 381              		.align	1
+ 382              		.global	DS18B20_Init
+ 383              		.syntax unified
+ 384              		.thumb
+ 385              		.thumb_func
+ 386              		.fpu softvfp
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 10
+
+
+ 388              	DS18B20_Init:
+ 389              	.LFB67:
+  44:Src/DS18B20.c ****     uint16_t DS_flag;
+ 390              		.loc 1 44 1 is_stmt 1 view -0
+ 391              		.cfi_startproc
+ 392              		@ args = 0, pretend = 0, frame = 0
+ 393              		@ frame_needed = 0, uses_anonymous_args = 0
+ 394 0000 10B5     		push	{r4, lr}
+ 395              	.LCFI7:
+ 396              		.cfi_def_cfa_offset 8
+ 397              		.cfi_offset 4, -8
+ 398              		.cfi_offset 14, -4
+  45:Src/DS18B20.c ****     DS18B20_IO_Mode(out);
+ 399              		.loc 1 45 5 view .LVU93
+  46:Src/DS18B20.c ****     DS18B20_IO_Write_0();
+ 400              		.loc 1 46 5 view .LVU94
+ 401 0002 0220     		movs	r0, #2
+ 402 0004 FFF7FEFF 		bl	DS18B20_IO_Mode
+ 403              	.LVL41:
+  47:Src/DS18B20.c ****     HAL_Delay_us(600);
+ 404              		.loc 1 47 5 view .LVU95
+ 405 0008 114C     		ldr	r4, .L32
+ 406 000a 0022     		movs	r2, #0
+ 407 000c 4FF48071 		mov	r1, #256
+ 408 0010 2046     		mov	r0, r4
+ 409 0012 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 410              	.LVL42:
+  48:Src/DS18B20.c ****     DS18B20_IO_Write_1();
+ 411              		.loc 1 48 5 view .LVU96
+ 412 0016 4FF41670 		mov	r0, #600
+ 413 001a FFF7FEFF 		bl	HAL_Delay_us
+ 414              	.LVL43:
+  49:Src/DS18B20.c ****     HAL_Delay_us(30);
+ 415              		.loc 1 49 5 view .LVU97
+ 416 001e 0122     		movs	r2, #1
+ 417 0020 4FF48071 		mov	r1, #256
+ 418 0024 2046     		mov	r0, r4
+ 419 0026 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 420              	.LVL44:
+  50:Src/DS18B20.c ****     DS18B20_IO_Mode(in);
+ 421              		.loc 1 50 5 view .LVU98
+ 422 002a 1E20     		movs	r0, #30
+ 423 002c FFF7FEFF 		bl	HAL_Delay_us
+ 424              	.LVL45:
+  51:Src/DS18B20.c ****     DS_flag = DS18B20_IO_Read();
+ 425              		.loc 1 51 5 view .LVU99
+ 426 0030 0120     		movs	r0, #1
+ 427 0032 FFF7FEFF 		bl	DS18B20_IO_Mode
+ 428              	.LVL46:
+  52:Src/DS18B20.c ****     HAL_Delay_us(500);
+ 429              		.loc 1 52 5 view .LVU100
+  52:Src/DS18B20.c ****     HAL_Delay_us(500);
+ 430              		.loc 1 52 15 is_stmt 0 view .LVU101
+ 431 0036 4FF48071 		mov	r1, #256
+ 432 003a 2046     		mov	r0, r4
+ 433 003c FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 434              	.LVL47:
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 11
+
+
+  52:Src/DS18B20.c ****     HAL_Delay_us(500);
+ 435              		.loc 1 52 13 view .LVU102
+ 436 0040 84B2     		uxth	r4, r0
+ 437              	.LVL48:
+  53:Src/DS18B20.c ****     return DS_flag;
+ 438              		.loc 1 53 5 is_stmt 1 view .LVU103
+ 439 0042 4FF4FA70 		mov	r0, #500
+ 440 0046 FFF7FEFF 		bl	HAL_Delay_us
+ 441              	.LVL49:
+  54:Src/DS18B20.c **** }
+ 442              		.loc 1 54 5 view .LVU104
+  55:Src/DS18B20.c **** 
+ 443              		.loc 1 55 1 is_stmt 0 view .LVU105
+ 444 004a 2046     		mov	r0, r4
+ 445 004c 10BD     		pop	{r4, pc}
+ 446              	.LVL50:
+ 447              	.L33:
+  55:Src/DS18B20.c **** 
+ 448              		.loc 1 55 1 view .LVU106
+ 449 004e 00BF     		.align	2
+ 450              	.L32:
+ 451 0050 000C0140 		.word	1073810432
+ 452              		.cfi_endproc
+ 453              	.LFE67:
+ 455              		.global	__aeabi_i2d
+ 456              		.global	__aeabi_dmul
+ 457              		.global	__aeabi_dadd
+ 458              		.global	__aeabi_d2uiz
+ 459              		.section	.text.DS18B20_GetTemperature,"ax",%progbits
+ 460              		.align	1
+ 461              		.global	DS18B20_GetTemperature
+ 462              		.syntax unified
+ 463              		.thumb
+ 464              		.thumb_func
+ 465              		.fpu softvfp
+ 467              	DS18B20_GetTemperature:
+ 468              	.LFB70:
+  96:Src/DS18B20.c **** 
+  97:Src/DS18B20.c **** //DS18B20获取温度
+  98:Src/DS18B20.c **** void DS18B20_GetTemperature(void)
+  99:Src/DS18B20.c **** {
+ 469              		.loc 1 99 1 is_stmt 1 view -0
+ 470              		.cfi_startproc
+ 471              		@ args = 0, pretend = 0, frame = 0
+ 472              		@ frame_needed = 0, uses_anonymous_args = 0
+ 473 0000 10B5     		push	{r4, lr}
+ 474              	.LCFI8:
+ 475              		.cfi_def_cfa_offset 8
+ 476              		.cfi_offset 4, -8
+ 477              		.cfi_offset 14, -4
+ 100:Src/DS18B20.c ****     /*
+ 101:Src/DS18B20.c ****     读到的温度数据 Byte0,Byte1 (12位精度)
+ 102:Src/DS18B20.c ****     TempL  2^3  2^2  2^1  2^0  2^-1  2^-2  2^-3  2^-4
+ 103:Src/DS18B20.c ****     TempH   S    S    S    S    S    2^6   2^5   2^4
+ 104:Src/DS18B20.c ****     S=0(温度为正)  S=1(温度为负)
+ 105:Src/DS18B20.c ****     */
+ 106:Src/DS18B20.c ****     uint8_t TempL;
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 12
+
+
+ 478              		.loc 1 106 5 view .LVU108
+ 107:Src/DS18B20.c ****     uint8_t TempH;
+ 479              		.loc 1 107 5 view .LVU109
+ 108:Src/DS18B20.c **** 
+ 109:Src/DS18B20.c ****     DS18B20_Init();
+ 480              		.loc 1 109 5 view .LVU110
+ 481 0002 FFF7FEFF 		bl	DS18B20_Init
+ 482              	.LVL51:
+ 110:Src/DS18B20.c ****     DS18B20_Write_Byte(0xcc); //跳过读取序列号(ROM)
+ 483              		.loc 1 110 5 view .LVU111
+ 484 0006 CC20     		movs	r0, #204
+ 485 0008 FFF7FEFF 		bl	DS18B20_Write_Byte
+ 486              	.LVL52:
+ 111:Src/DS18B20.c ****     DS18B20_Write_Byte(0x44); //启动温度检测
+ 487              		.loc 1 111 5 view .LVU112
+ 488 000c 4420     		movs	r0, #68
+ 489 000e FFF7FEFF 		bl	DS18B20_Write_Byte
+ 490              	.LVL53:
+ 112:Src/DS18B20.c **** 
+ 113:Src/DS18B20.c ****     HAL_Delay(800); //延时800ms(温度检测时间  12位精度检测时间>750ms(上电默认12�
+ 491              		.loc 1 113 5 view .LVU113
+ 492 0012 4FF44870 		mov	r0, #800
+ 493 0016 FFF7FEFF 		bl	HAL_Delay
+ 494              	.LVL54:
+ 114:Src/DS18B20.c **** 
+ 115:Src/DS18B20.c ****     DS18B20_Init();
+ 495              		.loc 1 115 5 view .LVU114
+ 496 001a FFF7FEFF 		bl	DS18B20_Init
+ 497              	.LVL55:
+ 116:Src/DS18B20.c ****     DS18B20_Write_Byte(0xcc);
+ 498              		.loc 1 116 5 view .LVU115
+ 499 001e CC20     		movs	r0, #204
+ 500 0020 FFF7FEFF 		bl	DS18B20_Write_Byte
+ 501              	.LVL56:
+ 117:Src/DS18B20.c ****     DS18B20_Write_Byte(0xbe); //读取温度寄存器内容(读取头两个值为温度)
+ 502              		.loc 1 117 5 view .LVU116
+ 503 0024 BE20     		movs	r0, #190
+ 504 0026 FFF7FEFF 		bl	DS18B20_Write_Byte
+ 505              	.LVL57:
+ 118:Src/DS18B20.c **** 
+ 119:Src/DS18B20.c ****     TempL = DS18B20_Read_Byte(); //读取Byte0温度数据
+ 506              		.loc 1 119 5 view .LVU117
+ 507              		.loc 1 119 13 is_stmt 0 view .LVU118
+ 508 002a FFF7FEFF 		bl	DS18B20_Read_Byte
+ 509              	.LVL58:
+ 510 002e 0446     		mov	r4, r0
+ 511              	.LVL59:
+ 120:Src/DS18B20.c ****     TempH = DS18B20_Read_Byte(); //读取Byte1温度数据
+ 512              		.loc 1 120 5 is_stmt 1 view .LVU119
+ 513              		.loc 1 120 13 is_stmt 0 view .LVU120
+ 514 0030 FFF7FEFF 		bl	DS18B20_Read_Byte
+ 515              	.LVL60:
+ 121:Src/DS18B20.c ****     DS18B20_TempDataStruct.TempDataAll = (TempH << 8) | TempL;
+ 516              		.loc 1 121 5 is_stmt 1 view .LVU121
+ 517              		.loc 1 121 55 is_stmt 0 view .LVU122
+ 518 0034 44EA0023 		orr	r3, r4, r0, lsl #8
+ 519 0038 9BB2     		uxth	r3, r3
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 13
+
+
+ 520              		.loc 1 121 40 view .LVU123
+ 521 003a 264A     		ldr	r2, .L37
+ 522 003c 5381     		strh	r3, [r2, #10]	@ movhi
+ 122:Src/DS18B20.c ****     if (TempH > 7)
+ 523              		.loc 1 122 5 is_stmt 1 view .LVU124
+ 524              		.loc 1 122 8 is_stmt 0 view .LVU125
+ 525 003e 0728     		cmp	r0, #7
+ 526 0040 04D9     		bls	.L35
+ 123:Src/DS18B20.c ****     {
+ 124:Src/DS18B20.c ****         DS18B20_TempDataStruct.TempDataAll = ~DS18B20_TempDataStruct.TempDataAll + 1;
+ 527              		.loc 1 124 9 is_stmt 1 view .LVU126
+ 528              		.loc 1 124 44 is_stmt 0 view .LVU127
+ 529 0042 5B42     		rsbs	r3, r3, #0
+ 530 0044 5381     		strh	r3, [r2, #10]	@ movhi
+ 125:Src/DS18B20.c ****         Sign = '-';
+ 531              		.loc 1 125 9 is_stmt 1 view .LVU128
+ 532              		.loc 1 125 14 is_stmt 0 view .LVU129
+ 533 0046 244B     		ldr	r3, .L37+4
+ 534 0048 2D22     		movs	r2, #45
+ 535 004a 1A70     		strb	r2, [r3]
+ 536              	.L35:
+ 126:Src/DS18B20.c ****     }
+ 127:Src/DS18B20.c ****     DS18B20_TempDataStruct.TempDataAll = DS18B20_TempDataStruct.TempDataAll * 0.0625 * 100 + 0.5;
+ 537              		.loc 1 127 5 is_stmt 1 view .LVU130
+ 538              		.loc 1 127 64 is_stmt 0 view .LVU131
+ 539 004c 214C     		ldr	r4, .L37
+ 540              	.LVL61:
+ 541              		.loc 1 127 77 view .LVU132
+ 542 004e 6089     		ldrh	r0, [r4, #10]
+ 543              	.LVL62:
+ 544              		.loc 1 127 77 view .LVU133
+ 545 0050 FFF7FEFF 		bl	__aeabi_i2d
+ 546              	.LVL63:
+ 547 0054 0022     		movs	r2, #0
+ 548 0056 214B     		ldr	r3, .L37+8
+ 549 0058 FFF7FEFF 		bl	__aeabi_dmul
+ 550              	.LVL64:
+ 551              		.loc 1 127 86 view .LVU134
+ 552 005c 0022     		movs	r2, #0
+ 553 005e 204B     		ldr	r3, .L37+12
+ 554 0060 FFF7FEFF 		bl	__aeabi_dmul
+ 555              	.LVL65:
+ 556              		.loc 1 127 92 view .LVU135
+ 557 0064 0022     		movs	r2, #0
+ 558 0066 1F4B     		ldr	r3, .L37+16
+ 559 0068 FFF7FEFF 		bl	__aeabi_dadd
+ 560              	.LVL66:
+ 561              		.loc 1 127 40 view .LVU136
+ 562 006c FFF7FEFF 		bl	__aeabi_d2uiz
+ 563              	.LVL67:
+ 564 0070 80B2     		uxth	r0, r0
+ 565 0072 6081     		strh	r0, [r4, #10]	@ movhi
+ 128:Src/DS18B20.c ****     /*留两位小数就*100，+0.5是四舍五入，因为C语言浮点数转换为整型的时候
+ 129:Src/DS18B20.c ****     后面的数自动去掉，不管是否大于0.5，而+0.5之后大于0.5的就是进1了，小
+ 130:Src/DS18B20.c ****     算加上0.5，还是在小数点后面*/
+ 131:Src/DS18B20.c **** 
+ 132:Src/DS18B20.c ****     //拆解各个部分的数据
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 14
+
+
+ 133:Src/DS18B20.c ****     DS18B20_TempDataStruct.Hun = DS18B20_TempDataStruct.TempDataAll / 10000;
+ 566              		.loc 1 133 5 is_stmt 1 view .LVU137
+ 567              		.loc 1 133 32 is_stmt 0 view .LVU138
+ 568 0074 1C4B     		ldr	r3, .L37+20
+ 569 0076 A3FB0023 		umull	r2, r3, r3, r0
+ 570 007a 5B0B     		lsrs	r3, r3, #13
+ 571 007c 2380     		strh	r3, [r4]	@ movhi
+ 134:Src/DS18B20.c ****     DS18B20_TempDataStruct.Tens = (DS18B20_TempDataStruct.TempDataAll / 1000) % 10;
+ 572              		.loc 1 134 5 is_stmt 1 view .LVU139
+ 573              		.loc 1 134 33 is_stmt 0 view .LVU140
+ 574 007e 1B4A     		ldr	r2, .L37+24
+ 575 0080 A2FB0032 		umull	r3, r2, r2, r0
+ 576 0084 9209     		lsrs	r2, r2, #6
+ 577 0086 1A4B     		ldr	r3, .L37+28
+ 578 0088 A3FB02C1 		umull	ip, r1, r3, r2
+ 579 008c C908     		lsrs	r1, r1, #3
+ 580 008e 01EB8101 		add	r1, r1, r1, lsl #2
+ 581 0092 A2EB4102 		sub	r2, r2, r1, lsl #1
+ 582 0096 6280     		strh	r2, [r4, #2]	@ movhi
+ 135:Src/DS18B20.c ****     DS18B20_TempDataStruct.Unit = (DS18B20_TempDataStruct.TempDataAll / 100) % 10;
+ 583              		.loc 1 135 5 is_stmt 1 view .LVU141
+ 584              		.loc 1 135 33 is_stmt 0 view .LVU142
+ 585 0098 164A     		ldr	r2, .L37+32
+ 586 009a A2FB0012 		umull	r1, r2, r2, r0
+ 587 009e 5209     		lsrs	r2, r2, #5
+ 588 00a0 A3FB02C1 		umull	ip, r1, r3, r2
+ 589 00a4 C908     		lsrs	r1, r1, #3
+ 590 00a6 01EB8101 		add	r1, r1, r1, lsl #2
+ 591 00aa A2EB4102 		sub	r2, r2, r1, lsl #1
+ 592 00ae A280     		strh	r2, [r4, #4]	@ movhi
+ 136:Src/DS18B20.c ****     DS18B20_TempDataStruct.Decimals1 = (DS18B20_TempDataStruct.TempDataAll / 10) % 10;
+ 593              		.loc 1 136 5 is_stmt 1 view .LVU143
+ 594              		.loc 1 136 38 is_stmt 0 view .LVU144
+ 595 00b0 A3FB0012 		umull	r1, r2, r3, r0
+ 596 00b4 D108     		lsrs	r1, r2, #3
+ 597 00b6 A3FB01C3 		umull	ip, r3, r3, r1
+ 598 00ba DB08     		lsrs	r3, r3, #3
+ 599 00bc 03EB8303 		add	r3, r3, r3, lsl #2
+ 600 00c0 A1EB4303 		sub	r3, r1, r3, lsl #1
+ 601 00c4 E380     		strh	r3, [r4, #6]	@ movhi
+ 137:Src/DS18B20.c ****     DS18B20_TempDataStruct.Decimals2 = DS18B20_TempDataStruct.TempDataAll % 10;
+ 602              		.loc 1 137 5 is_stmt 1 view .LVU145
+ 603              		.loc 1 137 38 is_stmt 0 view .LVU146
+ 604 00c6 01EB8101 		add	r1, r1, r1, lsl #2
+ 605 00ca A0EB4100 		sub	r0, r0, r1, lsl #1
+ 606 00ce 2081     		strh	r0, [r4, #8]	@ movhi
+ 138:Src/DS18B20.c **** }
+ 607              		.loc 1 138 1 view .LVU147
+ 608 00d0 10BD     		pop	{r4, pc}
+ 609              	.L38:
+ 610 00d2 00BF     		.align	2
+ 611              	.L37:
+ 612 00d4 00000000 		.word	.LANCHOR0
+ 613 00d8 00000000 		.word	.LANCHOR1
+ 614 00dc 0000B03F 		.word	1068498944
+ 615 00e0 00005940 		.word	1079574528
+ 616 00e4 0000E03F 		.word	1071644672
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 15
+
+
+ 617 00e8 5917B7D1 		.word	-776530087
+ 618 00ec D34D6210 		.word	274877907
+ 619 00f0 CDCCCCCC 		.word	-858993459
+ 620 00f4 1F85EB51 		.word	1374389535
+ 621              		.cfi_endproc
+ 622              	.LFE70:
+ 624              		.global	DS18B20_TempDataStruct
+ 625              		.global	Sign
+ 626              		.section	.bss.DS18B20_TempDataStruct,"aw",%nobits
+ 627              		.align	2
+ 628              		.set	.LANCHOR0,. + 0
+ 631              	DS18B20_TempDataStruct:
+ 632 0000 00000000 		.space	12
+ 632      00000000 
+ 632      00000000 
+ 633              		.section	.data.Sign,"aw"
+ 634              		.set	.LANCHOR1,. + 0
+ 637              	Sign:
+ 638 0000 20       		.byte	32
+ 639              		.text
+ 640              	.Letext0:
+ 641              		.file 2 "d:\\armgcc\\9 2020-q2-update\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 642              		.file 3 "d:\\armgcc\\9 2020-q2-update\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 643              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 644              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 645              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 646              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 647              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 648              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 649              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h"
+ 650              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 651              		.file 12 "Inc/tim.h"
+ 652              		.file 13 "Inc/DS18B20.h"
+ARM GAS  C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 DS18B20.c
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:16     .text.DS18B20_IO_Mode:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:23     .text.DS18B20_IO_Mode:00000000 DS18B20_IO_Mode
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:91     .text.DS18B20_IO_Mode:00000034 $d
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:96     .text.HAL_Delay_us:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:103    .text.HAL_Delay_us:00000000 HAL_Delay_us
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:163    .text.HAL_Delay_us:0000002c $d
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:168    .text.DS18B20_Write_Byte:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:174    .text.DS18B20_Write_Byte:00000000 DS18B20_Write_Byte
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:264    .text.DS18B20_Write_Byte:0000005c $d
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:269    .text.DS18B20_Read_Byte:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:275    .text.DS18B20_Read_Byte:00000000 DS18B20_Read_Byte
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:376    .text.DS18B20_Read_Byte:00000064 $d
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:381    .text.DS18B20_Init:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:388    .text.DS18B20_Init:00000000 DS18B20_Init
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:451    .text.DS18B20_Init:00000050 $d
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:460    .text.DS18B20_GetTemperature:00000000 $t
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:467    .text.DS18B20_GetTemperature:00000000 DS18B20_GetTemperature
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:612    .text.DS18B20_GetTemperature:000000d4 $d
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:631    .bss.DS18B20_TempDataStruct:00000000 DS18B20_TempDataStruct
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:637    .data.Sign:00000000 Sign
+C:\Users\Javis\AppData\Local\Temp\ccqYQ3gv.s:627    .bss.DS18B20_TempDataStruct:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_TIM_Base_Start
+HAL_TIM_Base_Stop
+htim6
+HAL_GPIO_WritePin
+HAL_GPIO_ReadPin
+__aeabi_i2d
+__aeabi_dmul
+__aeabi_dadd
+__aeabi_d2uiz
+HAL_Delay
