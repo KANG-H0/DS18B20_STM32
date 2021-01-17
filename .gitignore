@@ -1,1 +1,15 @@
 .vscode/
+build/
+Drivers/
+Inc/*
+!Inc/DS18B20.h
+!Inc/tim.h
+Src/*
+Src/DS18B20.h
+Src/tim.h
+Src/main.c
+.mxproject
+DS18B20.ioc
+Makefile
+startup_stm32f103xe.s
+STM32F103ZETx_FLASH.ld
